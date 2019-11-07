@@ -1,0 +1,307 @@
+<!DOCTYPE>
+<html>
+
+<head>
+	<title>Draw</title>
+	<!-- Estilos CSS-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700,900" rel="stylesheet"
+		type="text/css">
+	<link href="global_assets/css/icons/icomoon/styles.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/bootstrap_limitless.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/layout.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/components.min.css" rel="stylesheet" type="text/css">
+	<link href="assets/css/colors.min.css" rel="stylesheet" type="text/css">
+	<link href="css/css/proyecto.css" rel="stylesheet" type="text/css">
+	<!-- JS -->
+	<script src="js/proyecto.js"></script>
+	<script src="global_assets/js/main/jquery.min.js"></script>
+	<script src="global_assets/js/main/bootstrap.bundle.min.js"></script>
+	<script src="global_assets/js/plugins/loaders/blockui.min.js"></script>
+	<!-- Theme JS files -->
+	<script src="assets/js/app.js"></script>
+
+
+
+
+</head>
+
+<body>
+
+
+	<!--<canvas id="exercici" width="600" height="600"></canvas>-->
+	<!-- Barra de arriba (menu superior) -->
+	<div class="navbar navbar-expand-md navbar-dark">
+		<div class="navbar-brand">
+			<div class="btn-group btn-group-justified">
+				<div>
+					<a type="button" class="btn bg-pink-400 btn-icon rounded-round" id="download" download="myImage.jpg"
+						href="" onclick="download_img(this);">Descargar</a>
+
+					<button type="button" class="btn bg-pink-400 btn-icon rounded-round"
+						id="clear"><i></i>Borrar</button>
+				</div>
+			</div>
+		</div>
+		<span>
+			<h1 id="TituloDraw"><i>*.............................Drawing is life.............................*</i></h1>
+		</span>
+
+		<!--  (Montaje menus 2) -->
+
+
+		<div class="dropdown-menu dropdown-content wmin-md-350">
+			<div class="dropdown-content-header">
+				<span class="font-weight-semibold">Git updates</span>
+				<a href="#" class="text-default"><i class="icon-sync"></i></a>
+			</div>
+
+
+			<div class="dropdown-content-body dropdown-scrollable">
+				<ul class="media-list">
+					<li class="media">
+						<div class="mr-3">
+							<a href="#"
+								class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i
+									class="icon-git-pull-request"></i></a>
+						</div>
+					<li class="media">
+						<div class="mr-3">
+							<a href="#"
+								class="btn bg-transparent border-primary text-primary rounded-round border-2 btn-icon"><i
+									class="icon-git-pull-request"></i></a>
+						</div>
+						<div class="media-body">
+							Have Carousel ignore keyboard events
+							<div class="text-muted font-size-sm">Dec 12, 05:46</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<!-- Menu laterar (contenido de la pagina) -->
+	<div class="page-content">
+		<!--Le damos estilo, y se le da el color del menu lateral  -->
+		<div class="sidebar sidebar-dark sidebar-main sidebar-expand-md">
+			<!-- Sidebar content -->
+			<div class="sidebar-content">
+				<!-- Ponemos el logotipo de nuestro Paint -->
+				<div class="sidebar-user">
+					<div class="card-body">
+						<div class="media">
+							<img src="global_assets/images/redondo.png" height="120px" alt="Draw">
+						</div>
+					</div>
+				</div>
+				<!-- Introducimos nuestros botones -->
+				<div class="card card-sidebar-mobile">
+					<ul class="nav nav-sidebar" data-nav-type="accordion">
+
+						<!-- Main -->
+						<li class="nav-item-header">
+							<div class="text-uppercase font-size-xs line-height-xs">Herramientas de dibujo</div> <i
+								class="icon-menu" title="Main"></i>
+						</li>
+						<li class="nav-item">
+							<a href="index.html" class="nav-link ">
+								<i class="icon-home4"></i>
+								<span>
+									Inicio
+								</span>
+							</a>
+						</li>
+
+						<!--Menu Botonera-->
+						<li class="nav-item nav-item-submenu">
+							<!--Figuras-->
+							<a href="#" class="nav-link"><i class="icon-design"></i> <span>Figuras</span></a>
+							<ul class="nav nav-group-sub" data-submenu-title="Figuras">Figuras
+								<li class="nav-item nav-item-submenu">
+									<button id="requadre" type="button"
+										class="btn bg-pink-400 btn-icon rounded-round"><i
+											class="icon-checkbox-unchecked"></i></button>
+
+									<button id="triangle" type="button"
+										class="btn bg-pink-400 btn-icon rounded-round"><i
+											class="icon-triangle"></i></button>
+
+									<button id="cor" type="button" class="btn bg-pink-400 btn-icon rounded-round"><i
+											class="icon-heart5"></i></button>
+
+									<button id="cercle" type="button" class="btn bg-pink-400 btn-icon rounded-round"><i
+											class="icon-radio-unchecked"></i></button>
+
+									<button id="comic" type="button" class="btn bg-pink-400 btn-icon rounded-round"><i
+											class="icon-bubble9"></i></button>
+								</li>
+							</ul>
+
+
+							<ul class="nav nav-group-sub" data-submenu-title="Tipologia">
+								<li class="nav-item nav-item-submenu">
+
+									<div class="form-group">
+										<label>Grosor contorno</label>
+										<select id="grosorLinea" class="form-control select"
+											data-container-css-class="bg-teal-400">
+											<optgroup label="Anchura del lineado">
+												<option value="2">2 px</option>
+												<option value="6">6 px</option>
+												<option value="10">10 px</option>
+												<option value="15">15 px</option>
+											</optgroup>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Tipos de linea</label>
+										<select id="tipoLinea" class="form-control select"
+											data-container-css-class="bg-teal-400">
+											<optgroup label="Tipo de linea">
+												<option value="0"> -Linea Solida</option>
+												<option value="1">1 -Linea de Puntos</option>
+												<option value="2">8 -Discontinua Espaciada</option>
+												<option value="3">20 -Discontinua Muy Espaciada</option>
+											</optgroup>
+										</select>
+									</div>
+
+									<div class="form-group">
+										<label>Degradados</label>
+										<select id="degradados" class="form-control select"
+											data-container-css-class="bg-teal-400">
+											<optgroup label="Estilos de la imagen">
+												<option value="BN">Blanco & Negro</option>
+												<option value="S">Sepia</option>
+											</optgroup>
+										</select>
+									</div>
+								</li>
+							</ul>
+						</li>
+
+
+						<!--Texto-->
+						<li class="nav-item nav-item-submenu">
+							<a href="#" class="nav-link"><i class="icon-spell-check"></i> <span>Texto</span></a>
+
+							<ul class="nav nav-group-sub" data-submenu-title="Formato"> Formato
+								<li class="nav-item nav-item-submenu"></li>
+								<button id="texto" type="button" class="btn bg-pink-400 btn-icon rounded-round"><i
+										class="icon-font"></i></button>
+
+
+								<!--<div class="form-group">
+									<label>Grosor Letra</label>
+									<select id="grosorLineaTexto" class="form-control select"
+										data-container-css-class="bg-teal-400">
+										<optgroup label="Anchura de la letra">
+											<option value="1px">10</option>
+											<option value="2px">12</option>
+											<option value="3px">15</option>
+											<option value="4px">20</option>
+										</optgroup>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Tamño de Letra</label>
+									<select id="tamanoLetra" class="form-control select"
+										data-container-css-class="bg-teal-400">
+										<optgroup label="Anchura de la letra">
+											<option value="10px">10</option>
+											<option value="15px">15</option>
+											<option value="20px">20</option>
+											<option value="40px">40</option>
+										</optgroup>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Tipo</label>
+									<select id="tipologiaLetra" class="form-control select"
+										data-container-css-class="bg-teal-400">
+										<optgroup label="Fuente">
+											<option value="bolt">Negrita</option>
+											<option value="italic">Cursiva</option>
+											<option value="normal">Normal</option>
+										</optgroup>
+									</select>
+								</div>
+								<div class="form-group">
+									<label>Familias</label>
+									<select id="familiaLetra" class="form-control select"
+										data-container-css-class="bg-teal-400">
+										<optgroup label="Fuente">
+											<option value="Arial">Arial</option>
+											<option value="Comic Sans">Comic Sans</option>
+											<option value="Verdana">Verdana</option>
+											<option value="Calibri">Calibri</option>
+										</optgroup>
+									</select>
+								</div>-->
+						</li>
+					</ul>
+					</li>
+					<li class="nav-item nav-item-submenu">
+						<a href="#" class="nav-link"><i class="icon-image2"></i> <span>Imagen</span></a>
+						<!--Imagen-->
+						<ul class="nav nav-group-sub" data-submenu-title="Imagen"> Imagen
+							<li class="nav-item nav-item-submenu">
+
+								<!--<button id="clear" type="button" class="btn bg-pink-400 btn-icon rounded-round"><i
+										class="icon-spinner11"></i></button>-->
+
+								<button id="dentro" type="button"
+									class="btn bg-pink-400 btn-icon rounded-round">dentro<i
+										class="perretes"></i></button>
+
+								<button type="button" class="btn bg-pink-400 btn-icon rounded-round"><i
+										class="icon-gradient"></i></button>
+							</li>
+						</ul>
+					</li>
+					<li class="nav-item nav-item-submenu">
+						<a href="#" class="nav-link"><i class="icon-image2"></i> <span>Muestrario Imagenes</span></a>
+						<!--Imagen-->
+						<ul class="nav nav-group-sub" data-submenu-title="Imagen"> Imagenes
+							<li id="imagenes" class="nav-item nav-item-submenu">
+								<div class="form-group">
+									<img id="imagenPerretes" src="img/perretes.png">
+								</div>
+								<div class="form-group">
+									<img id="imagenEsVedra" src="img/vedra.png">
+								</div>
+								<div class="form-group">
+									<img id="imagenAmistad" src="img/amis.png">
+								</div>
+							</li>
+						</ul>
+					</li>
+					</ul>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-10">
+						<div id="textoRgba" style="width:200px;height:50px;float:left"></div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+		<br>
+		<div class="form-group">
+			<div class="col-sm-10">
+				<span id="color">&nbsp;</span>
+				<center> <canvas id="area" width="800" height="450"></canvas></center>
+
+
+				<center> <canvas id="colores" width="800" height="100"></canvas></center>
+				<center><img id="escala" src="img/colores.png" width="800" height="100" /></center>
+			</div>
+
+		</div>
+
+
+
+</body>
+
+</html>
