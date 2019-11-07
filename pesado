@@ -1,0 +1,320 @@
+var x = 0;
+var y = 0;
+var x2 = 0;
+var y2 = 0;
+var canvasP;
+var canvas;
+var context;
+var cntxt;
+var objetos = [];
+var rgba = [];
+var gradient = [];
+var grosor;
+var rotation = "20%";
+var tipo = [];
+var imagenPerretes;
+var imagenAmistad;
+var imagenEsVedra;
+
+window.onload = function () {
+    try {
+        document.createElement("canvas").getContext("2d");
+        canvasP = document.getElementById('area');
+        if (canvasP.getContext) {
+            cntxt = canvasP.getContext('2d');
+        }
+
+        canvas = document.getElementById('colores');
+        if (canvas.getContext) {
+            context = canvas.getContext('2d');
+        }
+
+        dibuixarFons();
+
+        // Grandiente del contorno de las figuras! 
+        gradient = cntxt.createLinearGradient(10, 200, 400, 800);
+        gradient.addColorStop("0", "red");
+        gradient.addColorStop("0.25", "orange");
+        gradient.addColorStop("0.5", "blue");
+        gradient.addColorStop("0.75", "yellow");
+        gradient.addColorStop("1.0", "green");
+
+        //Botonera
+        //this.document.getElementById('download').addEventListener('click', this.download_img);
+        this.document.getElementById('imagenEsVedra').addEventListener('click', cargarImagenEsVedra);
+        this.document.getElementById('imagenAmistad').addEventListener('click', cargarImagenAmistad);
+        this.document.getElementById('imagenPerretes').addEventListener('click', cargarImagenPerretes);
+        this.document.getElementById('tipoLinea').addEventListener('change', tipoLineas);
+        this.document.getElementById('grosorLinea').addEventListener('change', grosorLineas);
+        this.document.getElementById('colores').addEventListener('click', coloresRgba);
+        this.document.getElementById('area').addEventListener('mouseup', obtenirCoordenades);
+        this.document.getElementById('requadre').addEventListener('mousedown', dibuixarRequadre);
+        this.document.getElementById('triangle').addEventListener('mousedown', dibuixarTriangle);
+        this.document.getElementById('cercle').addEventListener('mousedown', dibuixarCercle);
+        this.document.getElementById('comic').addEventListener('mousedown', dibuixarComic);
+        this.document.getElementById('cor').addEventListener('mousedown', dibuixarCor);
+        this.document.getElementById('texto').addEventListener('mousedown', escribirTexto);
+        this.document.getElementById('clear').addEventListener('click', netejarCanvas);
+
+
+    } catch (e) {
+        this.console.log("HTML5 Canvas no suportat.");
+    }
+
+}
+
+function obtenirCoordenades(evt) {
+    var rect = canvasP.getBoundingClientRect();
+    x = evt.clientX - rect.left;
+    y = evt.clientY - rect.top;
+    console.log("x: " + x + " y: " + y);
+}
+
+//borrar
+function netejarCanvas() {
+    document.location.reload();
+}
+
+//Canvas principal
+
+//Formas Geometricas
+
+function dibuixarRequadre() {
+    cntxt.save();
+    cntxt.beginPath();
+    cntxt.fillStyle = rgba;
+    cntxt.moveTo(x, y);
+    cntxt.fillRect(x, y, 100, 100);
+    cntxt.fill();
+    cntxt.closePath();
+    cntxt.stroke();
+    cntxt.restore();
+
+}
+
+function dibuixarTriangle() {
+    cntxt.beginPath();
+    let gir = Math.PI/180 * 5;    
+    cntxt.save();
+    cntxt.rotate(gir);
+    cntxt.fillStyle = rgba;
+    cntxt.moveTo(x, y);
+    cntxt.lineTo(x + 50, y + 80);
+    cntxt.lineTo(x - 50, y + 80);
+    cntxt.setLineDash([tipo]); 
+
+  // cntxt.rotate(3.1515/100*0.15)
+    cntxt.fill();
+    cntxt.closePath();
+    cntxt.strokeStyle = gradient;
+    cntxt.lineWidth = grosor;
+    cntxt.stroke();
+    cntxt.restore();
+  
+}
+
+function dibuixarCercle() {
+    cntxt.save();
+    cntxt.beginPath();
+    cntxt.fillStyle = rgba;
+    cntxt.arc(x, y, 50, 0, Math.PI * 2);
+    cntxt.setLineDash([tipo]);
+    cntxt.fill();
+    cntxt.closePath();
+    cntxt.strokeStyle = gradient;
+    cntxt.lineWidth = grosor;
+    cntxt.stroke();
+    cntxt.restore();
+
+   
+}
+
+function dibuixarComic() {
+    cntxt.save();
+    cntxt.beginPath();
+    cntxt.fillStyle = rgba;
+    cntxt.moveTo(x + 75, y + 25);
+    cntxt.quadraticCurveTo(x + 25, y + 25, x + 25, y + 62.5);
+    cntxt.quadraticCurveTo(x + 25, y + 100, x + 50, y + 100);
+    cntxt.quadraticCurveTo(x + 50, y + 120, x + 30, y + 125);
+    cntxt.quadraticCurveTo(x + 60, y + 120, x + 65, y + 100);
+    cntxt.quadraticCurveTo(x + 125, y + 100, x + 125, y + 62.5);
+    cntxt.quadraticCurveTo(x + 125, y + 25, x + 75, y + 25);
+    cntxt.setLineDash([tipo]);
+    cntxt.fill();
+    cntxt.closePath();
+    cntxt.strokeStyle = gradient;
+    cntxt.lineWidth = grosor;
+    cntxt.stroke();
+    cntxt.restore();
+   
+}
+
+function dibuixarCor() {
+    cntxt.save();
+    /* let gir = 3.1415/180 * 5;
+     console.log(gir);
+     cntxt.rotate(gir);*/
+    cntxt.beginPath();
+    cntxt.fillStyle = rgba;
+    cntxt.moveTo(x + 75, y + 40);
+    cntxt.bezierCurveTo(x + 75, y + 37, x + 70, y + 25, x + 50, y + 25);
+    cntxt.bezierCurveTo(x + 20, y + 25, x + 20, y + 62.5, x + 20, y + 62.5);
+    cntxt.bezierCurveTo(x + 20, y + 80, x + 40, y + 102, x + 75, y + 120);
+    cntxt.bezierCurveTo(x + 110, y + 102, x + 130, y + 80, x + 130, y + 62.5);
+    cntxt.bezierCurveTo(x + 130, y + 62.5, x + 130, y + 25, x + 100, y + 25);
+    cntxt.bezierCurveTo(x + 85, y + 25, x + 75, y + 37, x + 75, y + 40);
+    cntxt.setLineDash([tipo]);
+    cntxt.closePath();
+
+    cntxt.strokeStyle = gradient;
+
+    cntxt.lineWidth = grosor;
+
+    cntxt.fill();
+    cntxt.stroke();
+    cntxt.restore();
+}
+
+function grosorLineas() {
+    var lineas = document.getElementById("grosorLinea").selectedIndex;
+    var opcions = document.getElementById("grosorLinea").options;
+    grosor = opcions[lineas].text.split(" ")[0];
+    
+}
+
+function tipoLineas() {
+
+    var linea = document.getElementById("tipoLinea").selectedIndex;
+    var opcionLinea = document.getElementById("tipoLinea").options;
+    tipo = opcionLinea[linea].text.split(" ")[0];
+   
+}
+
+
+//Funciones de texto 
+
+function escribirTexto() {
+    var texto = prompt("Texto: ", "Escriba aquí...");
+    var fuente = prompt("1.TIPOLOGIA: bold - italic - normal 2.TAMAÑO  3.FAMILIA FUENTE", "bold 20px Verdana")
+    cntxt.font = fuente;
+    cntxt.fillStyle = rgba;
+    cntxt.fillText(texto, x, y);
+}
+
+//canvas 2 
+
+function dibuixarFons() {
+    var img = document.getElementById('escala');
+    context.drawImage(img, 1, 1);
+}
+
+// rgba
+function coloresRgba(event) {
+    var imagen = document.getElementById('escala'); //le damos el id de la imagen 
+    context.drawImage(imagen, 10, 10) // pintamos la imagen 
+
+    var x = event.layerX; //cursor y 
+    var y = event.layerY; // cursor x
+
+    var pixel = context.getImageData(x, y, 1, 1);
+    var data = pixel.data;//Seleccionar pixel de la imagen y pueda obtener despues el color determinada de R G B A guarado en data 
+    rgba = 'RGBA(' + data[0] + ', ' + data[1] + ', ' + data[2] + ', ' + (data[3] / 255) + ')';//para poder obtener el R G B A 
+
+
+    textoRgba.style.background = rgba;//recuado donde muestra lso colores del rgba
+    textoRgba.textContent = rgba;//recuadro donde muestra el texto etx
+}
+
+
+//Imagen de fondo
+function cargarImagenPerretes() {
+    imagenPerretes = new Image();
+    imagenPerretes.src = 'img/perros.jpg'; // Se define la ruta de la imagen
+    imagenPerretes.onload = function () { // Mediante el evento onload se espera a que se cargue la imagen
+        cntxt.drawImage(imagenPerretes, x, y, 400, 200); // Dibuja la imagen en la posicion indicada
+
+    }
+}
+function cargarImagenEsVedra() {
+    imagenEsVedra = new Image();
+    imagenEsVedra.src = 'img/esVedra.jpg'; // Se define la ruta de la imagen
+    imagenEsVedra.onload = function () { // Mediante el evento onload se espera a que se cargue la imagen
+        cntxt.drawImage(imagenEsVedra, x, y, 400, 200); // Dibuja la imagen en la posicion indicada
+       
+    }
+}
+
+function cargarImagenAmistad() {
+    imagenAmistad = new Image(); // Crea una imagen para luego poder mostrarla
+    imagenAmistad.src = 'img/amistad.jpg'; // Se define la ruta de la imagen
+    imagenAmistad.onload = function () { // Mediante el evento onload se espera a que se cargue la imagen
+        cntxt.drawImage(imagenAmistad, x, y, 400, 200); // Dibuja la imagen en la posicion indicada
+        
+    }
+}
+
+
+
+/*function trazarImg(){
+    var imagen = document.getElementById("imagenes").value;
+        cntxt.drawImage(imagen,x,y,400,200);
+        console.log(imagen);
+}
+
+function borrarImg(){
+    cntxt.clearRect(x,y,800,450);
+}
+
+function escalarMasFiguras(){
+ 
+
+        cntxt.scale(3/2,3/2);
+
+    }
+    
+
+function escalarMenos(){
+    var escaladoMenos = (2/3,2/3)
+  cntxt.scale(2/3,2/3);
+   
+}
+function rotarMas(){
+     rotacion = (Math.PI/32)
+    
+   
+}
+function rotarMenos(){
+    borrarImg();
+    cntxt.rotate(-Math.PI/32);
+    trazarImg();
+}*/
+
+
+
+
+download_img = function(imatge){
+    var image = canvasP.toDataURL("image/jpg");
+    imatge.href = image; 
+    console.log(image);
+  };
+
+
+/*function imagenDentroFigura (){
+    cntxt.beginPath();
+    imagen =new Image(); //iniciar ruta
+    imagen.src="img/perros.jpg"; //nuevo objeto imagen
+    imagen.onload=function() { //la imagen debe cargarse
+        relleno=cntxt.createPattern(imagen,"repeat"); 
+        }				
+
+}*/
+
+
+
+
+
+
+
+
+
